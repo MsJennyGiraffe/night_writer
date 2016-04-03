@@ -1,5 +1,7 @@
 class Converter
 
+  attr_reader :english_to_braille
+
   def initialize
     @english_to_braille = { "a" => [["0."], [".."], [".."]],
                             "b" => [["0."], ["0."], [".."]],
@@ -26,13 +28,14 @@ class Converter
                             "w" => [[".0"], ["00"], [".0"]],
                             "x" => [["00"], [".."], ["00"]],
                             "y" => [["00"], [".0"], ["00"]],
-                            "z" => [["0."], [".0"], [".."]]
+                            "z" => [["0."], [".0"], ["00"]]
                           }
+  end
 
   def character_converter(character)
     puts @english_to_braille[(character)]
-    end
   end
+
 
 end
 
