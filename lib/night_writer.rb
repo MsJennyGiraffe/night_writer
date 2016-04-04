@@ -9,7 +9,7 @@ class NightWriter
   end
 
   def count_output_characters
-    @files.extract_contents(ARGV[0]).length
+    @files.extract_contents(ARGV[0]).chomp.length
   end
 
   def output_file(contents)
