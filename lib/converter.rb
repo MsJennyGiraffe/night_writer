@@ -33,11 +33,10 @@ class Converter
   end
 
   def character_converter(character)
-    puts @english_to_braille[(character)]
+    @english_to_braille[(character)]
   end
-
 
 end
 
 converter = Converter.new
-converter.character_converter("h")
+puts converter.character_converter("h")
