@@ -13,8 +13,8 @@ class NightWriter
 
   def start
     input = input_file
-    length = input.chomp.length
     output = @converter.converting(input)
+    length = output.chomp.length
     output_file(output, length)
   end
 

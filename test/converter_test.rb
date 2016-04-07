@@ -63,4 +63,12 @@ class ConverterTest < Minitest::Test
     assert_equal "hi you", @converter.translate_to_english([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]], [[".."], [".."], [".."]], [["00"], [".0"], ["00"]], [["0."], [".0"], ["0."]], [["0."], [".."], ["00"]]])
   end
 
+  def test_can_convert_from_integers_to_braille
+    assert_equal [[[".0"], [".0"], ["00"]], [[".0"], ["0."], [".."]]], @converter.translate_to_braille("9")
+  end
+
+  def test_can_convert_from_multiple_integers_to_braille
+    assert_equal [[[".0"], [".0"], ["00"]], [[".0"], ["0."], [".."]], [[".0"], [".0"], ["00"]], [[".0"], ["00"], [".."]]], @converter.translate_to_braille("90")
+  end
+
 end
