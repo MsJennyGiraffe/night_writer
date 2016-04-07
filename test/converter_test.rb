@@ -56,19 +56,19 @@ class ConverterTest < Minitest::Test
   end
 
   def test_can_convert_multiple_braille_letters
-    assert_equal "hi", @converter.translate_to_english([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
+    assert_equal ["h", "i"], @converter.translate_to_english([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
   end
 
   def test_can_convert_a_sentence
-    assert_equal "hi you", @converter.translate_to_english([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]], [[".."], [".."], [".."]], [["00"], [".0"], ["00"]], [["0."], [".0"], ["0."]], [["0."], [".."], ["00"]]])
+    assert_equal ["h", "i", " ", "y", "o", "u"], @converter.translate_to_english([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]], [[".."], [".."], [".."]], [["00"], [".0"], ["00"]], [["0."], [".0"], ["0."]], [["0."], [".."], ["00"]]])
   end
 
   def test_can_convert_capitals_from_braille_to_english
-    assert_equal "Hi", @converter.translate_to_english([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
+    assert_equal ["H", "i"], @converter.translate_to_english([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
   end
 
   def test_can_convert_multiple_capitals_from_braille_to_english
-    assert_equal "HI", @converter.translate_to_english([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".."], [".."], [".0"]], [[".0"], ["0."], [".."]]])
+    assert_equal ["H", "I"], @converter.translate_to_english([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".."], [".."], [".0"]], [[".0"], ["0."], [".."]]])
   end
 
   def test_can_convert_from_integers_to_braille
@@ -84,7 +84,7 @@ class ConverterTest < Minitest::Test
   end
 
   def test_can_convert_exclaimation_mark_to_english
-    assert_equal "!", @converter.translate_to_english([[[".."], ["00"], ["0."]]])
+    assert_equal ["!"], @converter.translate_to_english([[[".."], ["00"], ["0."]]])
   end
 
   def test_it_can_also_do_other_punctuation_to_braille
@@ -92,7 +92,7 @@ class ConverterTest < Minitest::Test
   end
 
   def test_it_can_also_do_other_punctuation_to_english
-    assert_equal "'.?-", @converter.translate_to_english([[[".."], [".."], ["0."]], [[".."], ["00"], [".0"]], [[".."], ["0."], ["00"]], [[".."], [".."], ["00"]]])
+    assert_equal ["'", ".", "?", "-"], @converter.translate_to_english([[[".."], [".."], ["0."]], [[".."], ["00"], [".0"]], [[".."], ["0."], ["00"]], [[".."], [".."], ["00"]]])
   end
 
 end

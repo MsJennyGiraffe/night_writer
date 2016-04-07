@@ -8,23 +8,27 @@ class NightWriter
   def initialize
     @file_accessor = FileAccessor.new
     @converter = Converter.new
+    @input_file = ARGV[0]
+    @output_file = ARGV[1]
   end
 
   def start
-    input = input_file
+    input = take_input_file
     output = @converter.converting(input)
     length = output.chomp.length
-    output_file(output, length)
+    write_output_file(output, length)
   end
 
-  def input_file
-    @file_accessor.extract_contents(ARGV[0])
+  def take_input_file
+    @file_accessor.extract_contents(@input_file)
   end
 
-  def output_file(contents, length)
-    @file_accessor.create_output_file(ARGV[1], contents, length)
+  def write_output_file(contents, length)
+    @file_accessor.create_output_file(@output_file, contents, length)
   end
 end
 
+if __FILE__ == $0
 nw = NightWriter.new
 nw.start
+end
