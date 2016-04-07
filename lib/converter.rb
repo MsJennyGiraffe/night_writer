@@ -19,16 +19,16 @@ class Converter
   end
 
   def translate_to_braille(message)
-    array = []
+    braille = []
       split_contents(message).each do |key, value|
-      if is_downcase?(key)
-        array << english_to_braille[(key)]
-      else
-        array << insert_capital
-        array << upcase_lettering(key)
+        if is_downcase?(key)
+          braille << english_to_braille[(key)]
+        else
+          braille << insert_capital
+          braille << upcase_lettering(key)
+        end
       end
-    end
-    array
+    braille
   end
 
   def insert_capital
@@ -54,6 +54,20 @@ class Converter
 
   def character_converter_from_braille(braille)
     english_to_braille.key(braille)
+  end
+
+  def split_braille_contents(braille_message)
+    braille_message.map do |braille|
+      braille
+    end
+  end
+
+  def translate_to_english(message)
+    english = []
+    split_braille_contents(message).each do |braille|
+      english << character_converter_from_braille(braille)
+    end
+    english.join
   end
 
   private
