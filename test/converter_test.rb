@@ -63,12 +63,36 @@ class ConverterTest < Minitest::Test
     assert_equal "hi you", @converter.translate_to_english([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]], [[".."], [".."], [".."]], [["00"], [".0"], ["00"]], [["0."], [".0"], ["0."]], [["0."], [".."], ["00"]]])
   end
 
+  def test_can_convert_capitals_from_braille_to_english
+    assert_equal "Hi", @converter.translate_to_english([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
+  end
+
+  def test_can_convert_multiple_capitals_from_braille_to_english
+    assert_equal "HI", @converter.translate_to_english([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".."], [".."], [".0"]], [[".0"], ["0."], [".."]]])
+  end
+
   def test_can_convert_from_integers_to_braille
     assert_equal [[[".0"], [".0"], ["00"]], [[".0"], ["0."], [".."]]], @converter.translate_to_braille("9")
   end
 
   def test_can_convert_from_multiple_integers_to_braille
     assert_equal [[[".0"], [".0"], ["00"]], [[".0"], ["0."], [".."]], [[".0"], [".0"], ["00"]], [[".0"], ["00"], [".."]]], @converter.translate_to_braille("90")
+  end
+
+  def test_can_convert_exclaimation_mark_to_braille
+    assert_equal [[[".."], ["00"], ["0."]]], @converter.translate_to_braille("!")
+  end
+
+  def test_can_convert_exclaimation_mark_to_english
+    assert_equal "!", @converter.translate_to_english([[[".."], ["00"], ["0."]]])
+  end
+
+  def test_it_can_also_do_other_punctuation_to_braille
+    assert_equal [[[".."], [".."], ["0."]], [[".."], ["00"], [".0"]], [[".."], ["0."], ["00"]], [[".."], [".."], ["00"]]], @converter.translate_to_braille("'.?-")
+  end
+
+  def test_it_can_also_do_other_punctuation_to_english
+    assert_equal "'.?-", @converter.translate_to_english([[[".."], [".."], ["0."]], [[".."], ["00"], [".0"]], [[".."], ["0."], ["00"]], [[".."], [".."], ["00"]]])
   end
 
 end

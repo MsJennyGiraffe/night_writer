@@ -1,4 +1,3 @@
-
 require_relative 'file_accessor'
 require_relative 'converter'
 

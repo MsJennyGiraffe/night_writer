@@ -24,18 +24,16 @@ class Converter
         if key =~ /[\d]/
           braille << english_to_braille["number"]
           braille << english_to_braille[key]
+        elsif key == "\n"
+          "\n"
         elsif is_downcase?(key)
           braille << english_to_braille[key]
         else
-          braille << insert_capital
+          braille << english_to_braille["capital"]
           braille << upcase_lettering(key)
         end
       end
     braille
-  end
-
-  def insert_capital
-    english_to_braille["capital"]
   end
 
   def upcase_lettering(key)
@@ -65,10 +63,28 @@ class Converter
     end
   end
 
-  def translate_to_english(message)
+  def converting_to_english(message)
     english = []
     split_braille_contents(message).each do |braille|
       english << character_converter_from_braille(braille)
+    end
+    english
+  end
+
+  def translate_to_english(message)
+    english = []
+    is_capital = false
+    converting_to_english(message).each do |letter|
+      if letter == "capital"
+        is_capital = true
+      else
+        if is_capital == true
+          is_capital = false
+          english << letter.upcase
+        else
+          english << letter
+        end
+      end
     end
     english.join
   end
