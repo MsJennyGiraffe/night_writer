@@ -6,7 +6,7 @@ class FileAccessor
   end
 
   def extract_contents(path)
-    contents = File.read(path)
+    contents = File.read(path).chomp
   end
 
   private

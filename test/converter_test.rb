@@ -35,20 +35,25 @@ class ConverterTest < Minitest::Test
     assert_equal [[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]], @converter.translate_to_braille("hi")
   end
 
-  # def test_letters_can_be_formatted_together
-  #   assert_equal "", @converter.formatting_characters([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
-  # end
-
   def test_joins_first_braille_indices
-    assert_equal "0..0", @converter.joins_first_braille_indices([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
+    assert_equal "0..0", @converter.joins_braille_indices([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]], 0)
   end
 
   def test_joins_second_braille_indices
-    assert_equal "000.", @converter.joins_second_braille_indices([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
+    assert_equal "000.", @converter.joins_braille_indices([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]], 1)
   end
 
   def test_joins_third_braille_indices
-    assert_equal "....", @converter.joins_third_braille_indices([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]])
+    assert_equal "....", @converter.joins_braille_indices([[["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]], 2)
+  end
+
+  def test_converter_can_deal_with_capitol_letters
+    skip
+    assert_equal [[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".0"], ["0."], [".."]]], @converter.translate_to_braille("Hi")
+  end
+
+  def test_converter_can_handle_multiple_uppercase_letters
+    assert_equal [[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".."], [".."], [".0"]], [[".0"], ["0."], [".."]]], @converter.translate_to_braille("HI")
   end
 
 end
