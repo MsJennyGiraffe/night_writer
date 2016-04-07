@@ -6,22 +6,30 @@ class Converter
 
   def converting(message)
     if message =~ /[a-zA-Z]/
-      translated_message = translate_to_braille(message)
-      characters = formatting_characters(translated_message)
-      split_characters_by_one_sixty(characters)
+      english_conversion_and_final_formatting(message)
     else
-      split_message = split_braille_contents(message)
-      translated_message = translate_to_english(split_message)
-      split_characters_by_eighty(translated_message)
+      braille_converstion_and_final_formatting(message)
     end
+  end
+
+  def english_conversion_and_final_formatting(message)
+    translated_message = translate_to_braille(message)
+    characters = formatting_characters(translated_message)
+    split_characters_by_one_sixty(characters)
+  end
+
+  def braille_converstion_and_final_formatting(message)
+    split_message = split_braille_contents(message)
+    translated_message = translate_to_english(split_message)
+    split_characters_by_eighty(translated_message)
   end
 
   def split_contents(english_message)
     english_message.split("")
   end
 
-  def character_converter(character)
-    english_to_braille[(character)]
+  def character_converter(english_character)
+    english_to_braille[(english_character)]
   end
 
   def translate_to_braille(message)
@@ -101,7 +109,7 @@ class Converter
         end
       end
     end
-    english = english.join("").gsub("\n", "").split("")
+    english = english.join.lstrip.split("")
   end
 
   def split_characters_by_one_sixty(braille)

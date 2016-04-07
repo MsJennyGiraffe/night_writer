@@ -91,4 +91,32 @@ class ConverterTest < Minitest::Test
     assert_equal ["'", ".", "?", "-"], @converter.translate_to_english([[[".."], [".."], ["0."]], [[".."], ["00"], [".0"]], [[".."], ["0."], ["00"]], [[".."], [".."], ["00"]]])
   end
 
+  def test_converting_can_tell_the_difference_between_braille_and_english
+    assert_equal "0..0\n000.\n....", @converter.converting("hi")
+  end
+
+  def test_translate_to_braille_can_detect_numbers
+    assert_equal [[[".0"], [".0"], ["00"]], [["0."], [".0"], [".."]]], @converter.translate_to_braille("5")
+  end
+
+  def test_translate_to_braille_does_not_turn_newlines_into_nil
+    assert_equal [], @converter.translate_to_braille("\n")
+  end
+
+  def test_upcase_lettering_lowercases_the_letter_to_comply_with_dictionary
+    assert_equal [["0."], ["00"], [".."]], @converter.upcase_lettering("H")
+  end
+
+  def test_formatting_characters_aligns_braille_indices
+    assert_equal ["..0....0", "..00..0.", ".0...0.."], @converter.formatting_characters([[[".."], [".."], [".0"]], [["0."], ["00"], [".."]], [[".."], [".."], [".0"]], [[".0"], ["0."], [".."]]])
+  end
+
+  def test_is_downcase_checks_if_a_letter_is_lowercase
+    assert @converter.is_downcase?("k")
+  end
+
+  def test_is_downcase_really_checks_if_a_letter_is_lowercase
+    refute @converter.is_downcase?("K")
+  end
+
 end
