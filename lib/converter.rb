@@ -119,8 +119,6 @@ class Converter
     end.join("")
   end
 
-  private
-
   def is_downcase?(character)
     character == character.downcase ? true : false
   end

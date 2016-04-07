@@ -10,8 +10,6 @@ class FileAccessor
     File.read(path).chomp
   end
 
-  private
-
   def length_of_message(length)
     "Created #{@path} containing #{length} characters"
   end

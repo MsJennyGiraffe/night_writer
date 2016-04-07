@@ -9,13 +9,17 @@ class NightWriterTest < Minitest::Test
     @night_writer = NightWriter.new
   end
 
-  def test_nightwriter_can_be_instantiated
+  def test_night_writer_can_be_created
     assert_equal NightWriter, @night_writer.class
   end
 
-  def test_writes
-    @night_writer.start
-    assert true
+  def test_night_writer_can_take_input
+    assert_equal "this is content", @night_writer.take_input_file
+  end
+
+  def test_night_writer_can_give_output
+    @night_writer.write_output_file(@output_file, 15)
+    assert_equal "this is content", @night_writer.take_input_file
   end
 
 end

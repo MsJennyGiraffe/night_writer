@@ -14,6 +14,7 @@ class NightWriter
 
   def start
     input = take_input_file
+    input == "" ? input = "Enter a message" : input
     output = @converter.converting(input)
     length = output.chomp.length
     write_output_file(output, length)
